@@ -42,7 +42,6 @@ async function run() {
             const id = req.params.id;
             const query = {_id:new ObjectId(id)}
             const result =await spotCollection.findOne(query)
-            console.log(result)
             res.send(result)
         }) 
         
@@ -58,7 +57,6 @@ async function run() {
           const country = req.params.country;
           const query = {country:country};
           const result = await spotCollection.find(query).toArray();
-          console.log(result)
           res.send(result)
         })
 
@@ -100,7 +98,6 @@ async function run() {
             const newUser = req.body;
             const result = await userCollection.insertOne(newUser)
             res.send(result);
-            console.log(result)
           })
 
 
