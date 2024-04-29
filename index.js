@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        await client.connect();
+        // await client.connect();
 
         const database = client.db("spotDB");
         const spotCollection = database.collection("spot");
@@ -54,6 +54,27 @@ async function run() {
         })
 
         app.get('/bangladeshSpots/:country', async(req,res)=>{
+          const country = req.params.country;
+          const query = {country:country};
+          const result = await spotCollection.find(query).toArray();
+          res.send(result)
+        })
+
+        app.get('/thailandSpots/:country',async(req,res)=>{
+          const country = req.params.country;
+          const query = {country:country};
+          const result = await spotCollection.find(query).toArray();
+          res.send(result)
+        })
+
+        app.get('/malaysiaSpots/:country',async(req,res)=>{
+          const country = req.params.country;
+          const query = {country:country};
+          const result = await spotCollection.find(query).toArray();
+          res.send(result)
+        })
+
+        app.get('/indonesiaSpots/:country',async(req,res)=>{
           const country = req.params.country;
           const query = {country:country};
           const result = await spotCollection.find(query).toArray();
@@ -94,6 +115,12 @@ async function run() {
           
           // user related
 
+          app.get('/user',async(req,res)=>{
+            const cursor = userCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+          })
+
           app.post('/user',async(req,res)=>{
             const newUser = req.body;
             const result = await userCollection.insertOne(newUser)
@@ -102,7 +129,7 @@ async function run() {
 
 
         // Send a ping to confirm a successful connection
-        await client.db("admin").command({ ping: 1 });
+        // await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
