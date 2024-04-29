@@ -54,6 +54,14 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/bangladeshSpots/:country', async(req,res)=>{
+          const country = req.params.country;
+          const query = {country:country};
+          const result = await spotCollection.find(query).toArray();
+          console.log(result)
+          res.send(result)
+        })
+
         app.put('/spot/:id',async(req,res)=>{
             const id = req.params.id;
             const filter={_id: new ObjectId(id)};
