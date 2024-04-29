@@ -25,11 +25,11 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
 
         const database = client.db("spotDB");
         const spotCollection = database.collection("spot");
+        const userCollection= database.collection("user")
 
         app.get('/spot',async(req,res)=>{
             const cursor = spotCollection.find();
@@ -84,6 +84,15 @@ async function run() {
             const result =await spotCollection.deleteOne(query)
             res.send(result)
       
+          })
+          
+          // user related
+
+          app.post('/user',async(req,res)=>{
+            const newUser = req.body;
+            const result = await userCollection.insertOne(newUser)
+            res.send(result);
+            console.log(result)
           })
 
 
